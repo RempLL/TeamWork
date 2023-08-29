@@ -35,6 +35,7 @@ public class GuestServiceImpl implements GuestService {
     }
 
     @Override
+    @Transactional
     public void setAccessLevel(Long chatId, String accessLevel) {
         Guest guest = guestRepository.findFirstByChatId(chatId);
         guest.setAccessLevel("guest");
@@ -52,6 +53,6 @@ public class GuestServiceImpl implements GuestService {
 
     @Override
     public Guest getGuest(Long chatId) {
-        return guestRepository.findById(chatId).orElse(new Guest());
+        return guestRepository.findFirstByChatId(chatId);
     }
 }
