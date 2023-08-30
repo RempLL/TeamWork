@@ -1,11 +1,13 @@
--- liquibase formatted sql
+--liquibase formatted sql
 
--- changeset shintar:1
+--changeset ash:1
 
-CREATE TABLE guest
+CREATE TABLE users
 (
-    id           BIGINT PRIMARY KEY,
-    chat_id      BIGINT,
-    full_name    TEXT NOT NULL,
-    access_level TEXT NOT NULL
+    id              BIGINT PRIMARY KEY,
+    chat_id         BIGINT,
+    full_name       TEXT NOT NULL,
+    access_level    TEXT NOT NULL,
+    current_shelter TEXT,
+    current_state   TEXT
 );
