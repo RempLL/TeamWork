@@ -19,6 +19,7 @@ public class MenuServiceIml implements MenuService {
     private final UserService userService;
     private static InlineKeyboardMarkup inlineKeyboard;
 
+    @Override
     public SendMessage defaultMenu(Long chatId, String messageText) {
 
         switch (messageText) {
@@ -54,7 +55,8 @@ public class MenuServiceIml implements MenuService {
         }
     }
 
-    public SendMessage hostMenu(Long chatId, String messageText) {
+    @Override
+    public SendMessage ownerMenu(Long chatId, String messageText) {
 
         switch (messageText) {
 
@@ -69,6 +71,7 @@ public class MenuServiceIml implements MenuService {
         }
     }
 
+    @Override
     public SendMessage volunteerMenu(Long chatId, String messageText) {
 
         switch (messageText) {
@@ -90,6 +93,7 @@ public class MenuServiceIml implements MenuService {
         }
     }
 
+    @Override
     public SendMessage adminMenu(Long chatId, String messageText) {
         inlineKeyboard = new InlineKeyboardMarkup(
                 new InlineKeyboardButton[]{ButtonEnum.INFO_BUTTON.get(), ButtonEnum.GET_BUTTON.get()},

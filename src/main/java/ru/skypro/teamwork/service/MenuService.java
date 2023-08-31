@@ -7,7 +7,7 @@ public interface MenuService {
 
     SendMessage volunteerMenu(Long chatId, String messageText);
 
-    SendMessage hostMenu(Long chatId, String messageText);
+    SendMessage ownerMenu(Long chatId, String messageText);
 
     SendMessage adminMenu(Long chatId, String messageText);
 

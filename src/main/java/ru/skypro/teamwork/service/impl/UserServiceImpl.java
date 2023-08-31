@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void setShelter(Long chatId, String shelter) {
         User user = userRepository.findFirstByChatId(chatId);
         user.setCurrentShelter(shelter);
