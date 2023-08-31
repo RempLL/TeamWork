@@ -1,11 +1,14 @@
 package ru.skypro.teamwork.service;
 
-import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
+import com.pengrad.telegrambot.request.SendMessage;
 
 public interface MenuService {
-    void showMenu(Long chatId, String text, InlineKeyboardMarkup inlineKeyboard);
+    SendMessage defaultMenu(Long chatId, String messageText);
 
-    void checkMessage(Long chatId, String name, String messageText);
+    SendMessage volunteerMenu(Long chatId, String messageText);
 
-    void sendMsg(Long chatId, String text);
+    SendMessage hostMenu(Long chatId, String messageText);
+
+    SendMessage adminMenu(Long chatId, String messageText);
+
 }

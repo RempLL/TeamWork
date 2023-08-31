@@ -48,12 +48,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void setShelter(Long chatId, String species) {
+    public void setShelter(Long chatId, String shelter) {
+        User user = userRepository.findFirstByChatId(chatId);
+        user.setCurrentShelter(shelter);
+        userRepository.save(user);
     }
 
     @Override
     public String getShelter(Long chatId) {
-        return userRepository.findFirstByChatId(chatId).getCurrentState();
+        return userRepository.findFirstByChatId(chatId).getCurrentShelter();
     }
 
     @Override

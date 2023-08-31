@@ -7,7 +7,8 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.skypro.teamwork.service.MenuService;
+import ru.skypro.teamwork.service.MessageService;
+
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @Slf4j
 @Service
 public class TelegramBotUpdatesListener implements UpdatesListener {
-    private final MenuService menuService;
+    private final MessageService messageService;
     private final TelegramBot telegramBot;
     @PostConstruct
     public void init() {
@@ -34,7 +35,7 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                 String fullName = (firstName == null ? "" : firstName) +
                         (username == null ? "" : "\"" + username + "\"") +
                         (lastName == null ? "" : " " + lastName);
-                menuService.checkMessage(
+                messageService.checkMessage(
                         update.callbackQuery().from().id(),
                         fullName,
                         update.callbackQuery().data());
@@ -45,7 +46,7 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                 String fullName = (firstName == null ? "" : firstName) +
                         (username == null ? "" : "\"" + username + "\"") +
                         (lastName == null ? "" : " " + lastName);
-                menuService.checkMessage(
+                messageService.checkMessage(
                         update.message().chat().id(),
                         fullName,
                         update.message().text());
