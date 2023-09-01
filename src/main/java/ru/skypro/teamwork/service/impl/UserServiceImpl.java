@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void setState(Long chatId, String currentState) {
         User user = userRepository.findFirstByChatId(chatId);
         user.setCurrentState(currentState);

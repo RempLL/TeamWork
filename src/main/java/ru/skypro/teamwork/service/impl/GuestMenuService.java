@@ -21,45 +21,44 @@ public class GuestMenuService implements MenuService {
     public SendMessage mainMenu(Long chatId, String messageText) {
 
         InlineKeyboardMarkup inlineKeyboard;
+        String sendingMessage;
 
         switch (messageText) {
 
             case "/start" -> {
                 inlineKeyboard = new InlineKeyboardMarkup(CommandEnum.DOG_SHELTER.getButton(), CommandEnum.CAT_SHELTER.getButton());
-                return new SendMessage(chatId, MessageEnum.START_MESSAGE.getMessage()).replyMarkup(inlineKeyboard);
+                sendingMessage = MessageEnum.START_MESSAGE.getMessage();
             }
             case "/dog" -> {
                 inlineKeyboard = new InlineKeyboardMarkup(CommandEnum.INFO.getButton());
                 inlineKeyboard.addRow(CommandEnum.GET.getButton());
-                inlineKeyboard.addRow(CommandEnum.HELP.getButton());
                 userService.setState(chatId, "dog");
-                return new SendMessage(chatId, MessageEnum.DOG_SHELTER_MESSAGE.getMessage()).replyMarkup(inlineKeyboard);
+                sendingMessage = MessageEnum.DOG_SHELTER_MESSAGE.getMessage();
             }
             case "/cat" -> {
                 inlineKeyboard = new InlineKeyboardMarkup(CommandEnum.INFO.getButton());
                 inlineKeyboard.addRow(CommandEnum.GET.getButton());
-                inlineKeyboard.addRow(CommandEnum.HELP.getButton());
                 userService.setState(chatId, "cat");
-                return new SendMessage(chatId, MessageEnum.CAT_SHELTER_MESSAGE.getMessage()).replyMarkup(inlineKeyboard);
+                sendingMessage = MessageEnum.CAT_SHELTER_MESSAGE.getMessage();
             }
             case "/info" -> {
                 String shelter = (userService.getState(chatId).equals("dog") ? "собак" : "кошек");
-                String text = MessageEnum.INFO_MESSAGE.getMessage() + shelter;
+                sendingMessage = MessageEnum.INFO_MESSAGE.getMessage() + shelter;
                 inlineKeyboard = new InlineKeyboardMarkup(CommandEnum.GET.getButton());
-                inlineKeyboard.addRow(CommandEnum.HELP.getButton());
-                return new SendMessage(chatId, text).replyMarkup(inlineKeyboard);
             }
             case "/help" -> {
-                inlineKeyboard = new InlineKeyboardMarkup(CommandEnum.START.getButton(), CommandEnum.HELP.getButton());
-                return new SendMessage(chatId, "Пока помочь некому").replyMarkup(inlineKeyboard);
+                inlineKeyboard = new InlineKeyboardMarkup(CommandEnum.START.getButton());
+                sendingMessage = "Пока помочь некому";
             }
             case "/get" -> {
-                inlineKeyboard = new InlineKeyboardMarkup(CommandEnum.START.getButton(), CommandEnum.HELP.getButton());
-                return new SendMessage(chatId, "Скоро расскажем").replyMarkup(inlineKeyboard);
+                inlineKeyboard = new InlineKeyboardMarkup(CommandEnum.START.getButton());
+                sendingMessage = "Скоро расскажем";
             }
             default -> {
                 return helpMenu(chatId);
             }
         }
+        inlineKeyboard.addRow(CommandEnum.HELP.getButton());
+        return new SendMessage(chatId, sendingMessage).replyMarkup(inlineKeyboard);
     }
 }
