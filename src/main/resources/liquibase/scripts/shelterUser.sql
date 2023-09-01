@@ -4,10 +4,9 @@
 
 CREATE TABLE users
 (
-    id              BIGINT PRIMARY KEY,
-    chat_id         BIGINT,
-    full_name       TEXT NOT NULL,
-    access_level    TEXT NOT NULL,
-    current_shelter TEXT,
-    current_state   TEXT
+    id            BIGINT PRIMARY KEY,
+    chat_id       BIGINT,
+    full_name     TEXT NOT NULL,
+    access_level  TEXT NOT NULL,
+    current_state TEXT
 );

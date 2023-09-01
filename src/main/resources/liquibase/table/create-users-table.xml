@@ -26,9 +26,6 @@
             <column name="access_level" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="current_shelter" type="VARCHAR(255)">
-                <constraints nullable="true"/>
-            </column>
             <column name="current_state" type="VARCHAR(255)">
                 <constraints nullable="true"/>
             </column>

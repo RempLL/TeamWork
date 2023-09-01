@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.skypro.teamwork.constant.MessageEnum;
-import ru.skypro.teamwork.service.MenuService;
 import ru.skypro.teamwork.service.MessageService;
 import ru.skypro.teamwork.service.UserService;
 
@@ -17,7 +16,10 @@ import ru.skypro.teamwork.service.UserService;
 public class MessageServiceImpl implements MessageService {
     private final TelegramBot telegramBot;
     private final UserService userService;
-    private final MenuService menuService;
+    private final GuestMenuService guestMenuService;
+    private final AdminMenuService adminMenuService;
+    private final VolunteerMenuService volunteerMenuService;
+    private final OwnerMenuService ownerMenuService;
 
     @Override
     public void checkMessage(Long chatId, String name, String messageText) {
@@ -25,14 +27,14 @@ public class MessageServiceImpl implements MessageService {
         switch (userService.getAccessLevel(chatId, name)) {
 
             case "new" -> {
-                sendMsg(chatId, "Привет, " + name + "!" + MessageEnum.NEWUSER_MESSAGE.getMessage());
+                sendMsg(chatId, "Привет, " + name + "!" + MessageEnum.NEW_USER_MESSAGE.getMessage());
                 userService.setAccessLevel(chatId, "guest");
-                sendMsg(menuService.defaultMenu(chatId, messageText));
+                sendMsg(guestMenuService.mainMenu(chatId, messageText));
             }
-            case "guest" -> sendMsg(menuService.defaultMenu(chatId, messageText));
-            case "volunteer" -> sendMsg(menuService.volunteerMenu(chatId, messageText));
-            case "owner" -> sendMsg(menuService.ownerMenu(chatId, messageText));
-            case "admin" -> sendMsg(menuService.adminMenu(chatId, messageText));
+            case "guest" -> sendMsg(guestMenuService.mainMenu(chatId, messageText));
+            case "volunteer" -> sendMsg(volunteerMenuService.mainMenu(chatId, messageText));
+            case "owner" -> sendMsg(ownerMenuService.mainMenu(chatId, messageText));
+            case "admin" -> sendMsg(adminMenuService.mainMenu(chatId, messageText));
         }
     }
 

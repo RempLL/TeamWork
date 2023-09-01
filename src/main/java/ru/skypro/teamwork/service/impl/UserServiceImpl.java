@@ -48,24 +48,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public void setShelter(Long chatId, String shelter) {
+    public void setState(Long chatId, String currentState) {
         User user = userRepository.findFirstByChatId(chatId);
-        user.setCurrentShelter(shelter);
+        user.setCurrentState(currentState);
         userRepository.save(user);
     }
 
     @Override
-    public String getShelter(Long chatId) {
-        return userRepository.findFirstByChatId(chatId).getCurrentShelter();
-    }
-
-    @Override
-    public void setState(Long chatId, String currentState) {
-    }
-
-    @Override
     public String getState(Long chatId) {
-        return null;
+        return userRepository.findFirstByChatId(chatId).getCurrentState();
     }
 }

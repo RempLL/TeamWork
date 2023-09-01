@@ -1,14 +1,18 @@
 package ru.skypro.teamwork.service;
 
+import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.request.SendMessage;
+import ru.skypro.teamwork.constant.CommandEnum;
+import ru.skypro.teamwork.constant.MessageEnum;
 
 public interface MenuService {
-    SendMessage defaultMenu(Long chatId, String messageText);
+    SendMessage mainMenu(Long chatId, String messageText);
 
-    SendMessage volunteerMenu(Long chatId, String messageText);
+    default SendMessage helpMenu(Long chatId) {
 
-    SendMessage ownerMenu(Long chatId, String messageText);
+        InlineKeyboardMarkup inlineKeyboard;
 
-    SendMessage adminMenu(Long chatId, String messageText);
-
+        inlineKeyboard = new InlineKeyboardMarkup(CommandEnum.START.getButton(), CommandEnum.HELP.getButton());
+        return new SendMessage(chatId, MessageEnum.ERROR_MESSAGE.getMessage()).replyMarkup(inlineKeyboard);
+    }
 }

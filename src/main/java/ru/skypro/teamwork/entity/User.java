@@ -24,8 +24,6 @@ public class User {
     private String accessLevel;
     @Column(name = "current_state")
     private String currentState;
-    @Column(name = "current_shelter")
-    private String currentShelter;
 
     @Override
     public String toString() {

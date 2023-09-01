@@ -11,10 +11,6 @@ public interface UserService {
 
     String getAccessLevel(Long chatId, String name);
 
-    void setShelter(Long chatId, String species);
-
-    String getShelter(Long chatId);
-
     void setState(Long chatId, String currentState);
 
     String getState(Long chatId);
